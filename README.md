@@ -24,11 +24,15 @@ for applications, microservices, and background tasks.
 <summary>Maven</summary>
 
 ```xml
-<dependency>
-  <groupId>io.taskflow</groupId>
-  <artifactId>taskflow-core</artifactId>
-  <version>1.0.0</version>
-</dependency>
+<dependencies>
+    <!-- Placeholder
+    <dependency>
+        <groupId>io.taskflow</groupId>
+        <artifactId>taskflow-core</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+    -->
+</dependencies>
 ```
 </details>
 
@@ -36,7 +40,10 @@ for applications, microservices, and background tasks.
 <summary>Gradle</summary>
 
 ```Kotlin
-implementation("io.taskflow:taskflow-core:1.0.0")
+dependencies {
+    // Placeholder
+    //implementation("io.taskflow:taskflow-core:1.0.0")
+}
 ```
 </details>
 
