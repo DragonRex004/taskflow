@@ -18,7 +18,7 @@ public class DefaultTaskSchedular implements TaskScheduler {
                             builder.task().getTask().run();
                             this.shutdown();
                         },
-                        builder.task().getInitialDelay().toSeconds(),
+                        builder.task().getInitialDelay().getSeconds(),
                         TimeUnit.SECONDS
                 );
             }
@@ -26,7 +26,7 @@ public class DefaultTaskSchedular implements TaskScheduler {
                 this.executor.scheduleWithFixedDelay(
                         builder.task().getTask(),
                         builder.task().getInitialDelay().toSeconds(),
-                        builder.task().getInterval().toSeconds(),
+                        builder.task().getInterval().getSeconds(),
                         TimeUnit.SECONDS
                 );
             }
