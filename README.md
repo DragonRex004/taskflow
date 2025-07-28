@@ -56,24 +56,26 @@ dependencies {
 package test.taskflow;
 
 import de.dragonrex.taskflow.core.ExecutionType;
-import de.dragonrex.taskflow.core.ScheduleBuilder;
+import de.dragonrex.taskflow.core.Task;
 import de.dragonrex.taskflow.core.TaskScheduler;
 import de.dragonrex.taskflow.impl.DefaultTaskSchedular;
 
 import java.time.Duration;
 
-public class TaskTest {
+public class DelayedTaskTest {
     public static void main(String[] args) {
         TaskScheduler scheduler = new DefaultTaskSchedular();
-        
+
+        System.out.println("Starting DelayedTaskTest...");
         scheduler.schedule(
-                new ScheduleBuilder()
-                        .name("TaskTest-001")
+                Task.builder()
+                        .name("DelayedTaskTest")
+                        .type(ExecutionType.ONCE)
                         .after(Duration.ofSeconds(10))
-                        .type(ExecutionType.REPEAT)
-                        .run(() -> {
-                            System.out.println("Hello World!");
+                        .task(() -> {
+                            System.out.println("DelayedTask Finished after 10s!");
                         })
+                        .build()
         );
     }
 }
@@ -85,24 +87,26 @@ public class TaskTest {
 package test.taskflow;
 
 import de.dragonrex.taskflow.core.ExecutionType;
-import de.dragonrex.taskflow.core.ScheduleBuilder;
+import de.dragonrex.taskflow.core.Task;
 import de.dragonrex.taskflow.core.TaskScheduler;
 import de.dragonrex.taskflow.impl.DefaultTaskSchedular;
 
 import java.time.Duration;
 
-public class TaskTest {
+public class RepeatedTaskTest {
     public static void main(String[] args) {
         TaskScheduler scheduler = new DefaultTaskSchedular();
-        
+
+        System.out.println("Starting RepeatedTaskTest...");
         scheduler.schedule(
-                new ScheduleBuilder()
-                        .name("TaskTest-001")
-                        .every(Duration.ofSeconds(10))
+                Task.builder()
+                        .name("RepeatedTaskTest")
                         .type(ExecutionType.REPEAT)
-                        .run(() -> {
-                            System.out.println("Hello World!");
+                        .every(Duration.ofSeconds(10))
+                        .task(() -> {
+                            System.out.println("RepeatedTask Finished every 10s!");
                         })
+                        .build()
         );
     }
 }
