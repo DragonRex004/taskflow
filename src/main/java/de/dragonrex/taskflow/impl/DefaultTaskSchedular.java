@@ -1,6 +1,6 @@
 package de.dragonrex.taskflow.impl;
 
-import de.dragonrex.taskflow.core.ScheduleBuilder;
+import de.dragonrex.taskflow.core.Task;
 import de.dragonrex.taskflow.core.TaskScheduler;
 
 import java.util.concurrent.Executors;
@@ -11,25 +11,21 @@ public class DefaultTaskSchedular implements TaskScheduler {
     private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
     @Override
-    public void schedule(ScheduleBuilder builder) {
-        switch (builder.task().getType()) {
-            case ONCE: {
-                this.executor.schedule(() -> {
-                            builder.task().getTask().run();
+    public void schedule(Task task) {
+        switch (task.getType()) {
+            case ONCE ->this.executor.schedule(() -> {
+                            task.getTask().run();
                             this.shutdown();
                         },
-                        builder.task().getInitialDelay().getSeconds(),
+                        task.getAfter().getSeconds(),
                         TimeUnit.SECONDS
-                );
-            }
-            case REPEAT: {
-                this.executor.scheduleWithFixedDelay(
-                        builder.task().getTask(),
-                        builder.task().getInitialDelay().toSeconds(),
-                        builder.task().getInterval().getSeconds(),
-                        TimeUnit.SECONDS
-                );
-            }
+            );
+            case REPEAT -> this.executor.scheduleWithFixedDelay(
+                    task.getTask(),
+                    task.getAfter().toSeconds(),
+                    task.getEvery().getSeconds(),
+                    TimeUnit.SECONDS
+            );
         }
     }
 
